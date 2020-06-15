@@ -17,6 +17,15 @@ const green = (str) => {
 const red = (str) => {
     return '\x1b[31m' + str + `\x1b[0m`
 }
+if (!fullstackOnline.includes('01-Class-Content')) {
+    console.warn(
+        red(
+            'Please make sure you add 01-Class-Content to the end of your fullstackOnline path'
+        )
+    )
+    console.warn(red('please update classrepo.js'))
+    process.exit('Issue with path')
+}
 
 // get a list of files for the folder
 fs.readdir(fullstackOnline, (err, items) => {
