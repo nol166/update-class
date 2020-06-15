@@ -17,6 +17,8 @@ const green = (str) => {
 const red = (str) => {
     return '\x1b[31m' + str + `\x1b[0m`
 }
+
+// check for incorrrectly set up variables in classrepo.js
 if (!fullstackOnline.includes('01-Class-Content')) {
     console.warn(
         red(

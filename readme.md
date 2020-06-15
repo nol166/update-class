@@ -23,4 +23,4 @@ module.exports = {
 
 <img src="assets/screen1.png">
 <img src="assets/screen3.png">
-<img src="assets/screen2.png">
+<img src="assets/screen2.png" width="670px">
