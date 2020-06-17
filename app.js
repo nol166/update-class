@@ -2,20 +2,18 @@ const fs = require('fs')
 const path = require('path')
 const inquirer = require('inquirer')
 let { fullstackOnline, classRepo } = require('./classRepo')
-const { dirname } = require('path')
-
 let folder = []
 
 // helper functions to add some color
-const bold = (str) => {
+const bold = str => {
     return '\033[1m' + str + '\033[0m'
 }
 
-const green = (str) => {
+const green = str => {
     return '\x1b[36m' + str + '\x1b[0m'
 }
 
-const red = (str) => {
+const red = str => {
     return '\x1b[31m' + str + `\x1b[0m`
 }
 
@@ -39,8 +37,12 @@ fs.readdir(fullstackOnline, (err, items) => {
     }
 
     console.log(bold('Current items:'))
-    items.forEach((item) => {
-        folder.push(item)
+    items.forEach(item => {
+        // check if folder starts with number (trilogy naming convention)
+        let folderPattern = new RegExp('[0-9]')
+        if (item.match(folderPattern)) {
+            folder.push(item)
+        }
     })
 
     // prompt the user for what folder they want to copy
@@ -53,13 +55,8 @@ fs.readdir(fullstackOnline, (err, items) => {
                 message: 'What folder do you want to copy?',
                 choices: folder,
             },
-            // {
-            //     type: 'confirm',
-            //     name: 'size',
-            //     message: 'Do you want to exclude the solutions?',
-            // },
         ])
-        .then((answers) => {
+        .then(answers => {
             console.log(JSON.stringify(answers, null, '  '))
             console.log(answers)
             let chosenDir = `${fullstackOnline}/${answers.folder}`
@@ -104,7 +101,6 @@ const copyFolderRecursiveSync = (source, target) => {
             var curSource = path.join(source, file)
             if (fs.lstatSync(curSource).isDirectory()) {
                 copyFolderRecursiveSync(curSource, targetFolder)
-                // console.log(curSource, targetFolder)
             } else {
                 console.info(green('Copied ') + `${curSource}`)
                 copyFileSync(curSource, targetFolder)
