@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const inquirer = require('inquirer')
 let { fullstackOnline, classRepo } = require('./classRepo')
+const { dirname } = require('path')
 
 let folder = []
 
@@ -19,13 +20,14 @@ const red = (str) => {
 }
 
 // check for incorrrectly set up variables in classrepo.js
-if (!fullstackOnline.includes('01-Class-Content')) {
+let hasClassContent = fullstackOnline.includes('01-Class-Content')
+if (!hasClassContent) {
     console.warn(
         red(
             'Please make sure you add 01-Class-Content to the end of your fullstackOnline path'
         )
     )
-    console.warn(red('please update classrepo.js'))
+    console.warn(red(`please update classrepo.js in ${__dirname}/classrepo.js`))
     process.exit('Issue with path')
 }
 
