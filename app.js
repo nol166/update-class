@@ -5,17 +5,9 @@ let { fullstackOnline, classRepo } = require('./classRepo')
 let folder = []
 
 // helper functions to add some color
-const bold = str => {
-    return '\033[1m' + str + '\033[0m'
-}
-
-const green = str => {
-    return '\x1b[36m' + str + '\x1b[0m'
-}
-
-const red = str => {
-    return '\x1b[31m' + str + `\x1b[0m`
-}
+const bold = str => '\033[1m' + str + '\033[0m'
+const green = str => '\x1b[36m' + str + '\x1b[0m'
+const red = str => '\x1b[31m' + str + `\x1b[0m`
 
 // check for incorrrectly set up variables in classrepo.js
 let hasClassContent = fullstackOnline.includes('01-Class-Content')
@@ -44,7 +36,6 @@ fs.readdir(fullstackOnline, (err, items) => {
             folder.push(item)
         }
     })
-
     // prompt the user for what folder they want to copy
     // TODO: add ability to copy over solutions
     inquirer
@@ -58,14 +49,13 @@ fs.readdir(fullstackOnline, (err, items) => {
         ])
         .then(answers => {
             console.log(JSON.stringify(answers, null, '  '))
-            console.log(answers)
             let chosenDir = `${fullstackOnline}/${answers.folder}`
             copyFolderRecursiveSync(chosenDir, classRepo)
         })
 })
 
 const copyFileSync = (source, target) => {
-    var targetFile = target
+    let targetFile = target
 
     //if target isDir a new file with the same name will be made
     if (fs.existsSync(target)) {
@@ -78,10 +68,10 @@ const copyFileSync = (source, target) => {
 }
 
 const copyFolderRecursiveSync = (source, target) => {
-    var files = []
+    let files = []
 
     // check if folder needs to be created
-    var targetFolder = path.join(target, path.basename(source))
+    let targetFolder = path.join(target, path.basename(source))
     let isModuleProject = targetFolder.includes('Module-Project')
     let isSolved = targetFolder.includes('Solved')
     let isMaster = targetFolder.includes('Master')
@@ -98,7 +88,7 @@ const copyFolderRecursiveSync = (source, target) => {
     if (fs.lstatSync(source).isDirectory()) {
         files = fs.readdirSync(source)
         files.forEach(function (file) {
-            var curSource = path.join(source, file)
+            let curSource = path.join(source, file)
             if (fs.lstatSync(curSource).isDirectory()) {
                 copyFolderRecursiveSync(curSource, targetFolder)
             } else {
