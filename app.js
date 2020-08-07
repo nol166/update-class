@@ -1,8 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const inquirer = require('inquirer')
-let { fullstackOnline, classRepo } = require('./classRepo')
+let { fullstackOnline, ucla, austin } = require('./classRepo')
 let folder = []
+let cohoarts = [ucla, austin]
 
 // helper functions to add some color
 const bold = str => '\033[1m' + str + '\033[0m'
@@ -42,6 +43,12 @@ fs.readdir(fullstackOnline, (err, items) => {
         .prompt([
             {
                 type: 'list',
+                name: 'cohoart',
+                message: 'What class do you want to manage?',
+                choices: cohoarts,
+            },
+            {
+                type: 'list',
                 name: 'folder',
                 message: 'What folder do you want to copy?',
                 choices: folder,
@@ -49,6 +56,7 @@ fs.readdir(fullstackOnline, (err, items) => {
         ])
         .then(answers => {
             console.log(JSON.stringify(answers, null, '  '))
+            classRepo = answers.cohoart
             let chosenDir = `${fullstackOnline}/${answers.folder}`
             copyFolderRecursiveSync(chosenDir, classRepo)
         })
