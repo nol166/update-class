@@ -1,9 +1,10 @@
 const fs = require('fs')
 const path = require('path')
 const inquirer = require('inquirer')
-let { fullstackOnline, ucla, austin } = require('./classRepo')
+let { fullstackOnline, vanderbilt } = require('./classRepo')
 let folder = []
-let cohoarts = [ucla, austin]
+let cohorts = [vanderbilt]
+console.log("🚀 ~ file: app.js ~ line 7 ~ vanderbilt", vanderbilt)
 
 // helper functions to add some color
 const bold = str => '\033[1m' + str + '\033[0m'
@@ -45,7 +46,7 @@ fs.readdir(fullstackOnline, (err, items) => {
                 type: 'list',
                 name: 'cohoart',
                 message: 'What class do you want to manage?',
-                choices: cohoarts,
+                choices: cohorts,
             },
             {
                 type: 'list',
@@ -82,8 +83,8 @@ const copyFolderRecursiveSync = (source, target) => {
     let targetFolder = path.join(target, path.basename(source))
     let isModuleProject = targetFolder.includes('Module-Project')
     let isSolved = targetFolder.includes('Solved')
-    let isMaster = targetFolder.includes('Master')
-    if (isSolved || isModuleProject || isMaster) {
+    let isMain = targetFolder.includes('Main')
+    if (isSolved || isModuleProject || isMain) {
         console.info(`${red('Not copying ')}${targetFolder}`)
         return
     }

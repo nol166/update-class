@@ -8,5 +8,8 @@
         "semi": false,
         "singleQuote": true,
         "arrowParens": "avoid"
+    },
+    "scripts": {
+        "start": "node app"
     }
 }
